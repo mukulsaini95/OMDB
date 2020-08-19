@@ -5,7 +5,7 @@ import * as CONSTANTs from './constants';
 
 export function* apiMovieSearchHandlerAsync(action) {
   try {
-    let url = "http://www.omdbapi.com/?apikey=3b63fa88&s="+action.searchKey+"&page=" + action.pageNumber + "&type=" +action.genre;
+    let url = "https://www.omdbapi.com/?apikey=3b63fa88&s="+action.searchKey+"&page=" + action.pageNumber + "&type=" +action.genre;
     console.log('url: ', url);
     const response = yield call(axios.get, url,{});
     console.log('response: ', response);
