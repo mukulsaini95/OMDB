@@ -1,4 +1,5 @@
 language: node_js
+site_url: https://mukulsaini95.github.io/OMDB
 
 node_js:
   - 9
