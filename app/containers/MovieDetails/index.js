@@ -68,7 +68,7 @@ export class MovieDetails extends React.Component {
     isFetching: true
   }
   componentDidMount() {
-    // this.props.getMovieDetails(this.props.match.params.id)
+    this.props.getMovieDetails(this.props.match.params.id)
   }
 
   componentWillReceiveProps(nextPorps) {
