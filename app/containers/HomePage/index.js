@@ -57,7 +57,7 @@ export class HomePage extends React.PureComponent {
       favMovies = favMovies.filter(temp => temp.Title.toLowerCase().includes(this.state.searchKey.toLowerCase()) && (temp.Type.includes(this.state.genre)))
       this.setState({
         favMovies,
-        isSearched:true
+        isSearched: true
       })
     }
   }
@@ -114,7 +114,7 @@ export class HomePage extends React.PureComponent {
       isHomeView,
       searchKey: "",
       movies: [],
-      isSearched:false
+      isSearched: false
     })
   }
 
@@ -131,10 +131,18 @@ export class HomePage extends React.PureComponent {
         <div className="header headerMenu">
 
           <ul><div className="floatleft">
-            <li className="special_text" onClick={() => this.isHomeView(true)}><a className={this.state.isHomeView ? "active" : ""}>Home</a></li>
+            <li className="special_text" onClick={() => this.isHomeView(true)}>
+              <a className={this.state.isHomeView ? "active" : ""}>
+                <i className="fa fa-home" ></i> Home
+              </a>
+            </li>
           </div>
             <div className="floatright">
-              <li onClick={() => this.isHomeView(false)}><a className={!this.state.isHomeView ? "active" : ""}>Favourite</a> </li>
+              <li onClick={() => this.isHomeView(false)}>
+                <a className={!this.state.isHomeView ? "active" : ""}>
+                  <i className="fa fa-star" aria-hidden="true"></i> Favourite
+                </a>
+              </li>
             </div>
           </ul>
         </div>
@@ -153,10 +161,10 @@ export class HomePage extends React.PureComponent {
             </div>
           </div>
           {(this.state.isSearched || !this.state.isHomeView) &&
-            <div>
+            <React.Fragment>
               {this.state.isSearched && <h4>Results for "{this.state.searchKey}"</h4>}
               <section id="card-view" >
-                {movies.length > 0 ? movies.map((movie, index) => (<article key={index}>
+                {movies.length > 0 ? movies.map(movie => (<article  key={movie.imdbID} onClick={() => this.props.history.push("/movieDetails/" + movie.imdbID)}>
                   <div className="card-image"><img src={movie.Poster} /></div>
                   <div className="card-text">
                     <h5> {movie.Title} ( {movie.Year} )</h5>
@@ -166,9 +174,9 @@ export class HomePage extends React.PureComponent {
                 )) : <div className="noDataFound">
                     <h5>{this.state.isHomeView ? "No Match Found!" : "No Movies Add To Favourite"}</h5>
                   </div>}
-                {this.state.isFetching && <div class="loader">Loading...</div>}
+                {this.state.isFetching && <div className="loader">Loading...</div>}
               </section>
-            </div>
+            </React.Fragment>
           }
           {(this.state.isSearched && this.state.isHomeView) && <button type="button" disabled={this.state.pages == this.state.currentPage} onClick={this.nextPageRequestHandler} className="float">
             <i className="fa fa-arrow-right"></i>

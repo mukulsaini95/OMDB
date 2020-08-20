@@ -16,7 +16,8 @@ import { Switch, Route } from 'react-router-dom';
 import { Redirect } from "react-router";
 
 import HomePage from 'containers/HomePage/Loadable';
-import jwt_decode from "jwt-decode";
+import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import MovieDetails from 'containers/MovieDetails/Loadable';
 
 
 const offlineDiv = (
@@ -37,13 +38,18 @@ export default function App() {
   
     return (
       <Switch>
+        <Route exact path="/movieDetails/:id" component={props =>
+            navigator.onLine ? <MovieDetails {...props} /> : offlineDiv
+          } />
         <Route
-          path="/"
+          exact path="/"
           render={props =>
             navigator.onLine ? <HomePage {...props} /> : offlineDiv
           }
         />
-        <Route component={() => <div>Page Not Found</div>} />
+        <Route component={props =>
+            navigator.onLine ? <NotFoundPage {...props} /> : offlineDiv
+          } />
       </Switch>
       )
 }
